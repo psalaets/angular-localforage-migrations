@@ -23,7 +23,7 @@ app.config(function(migrationsProvider) {
 })
 ```
 
-#### migration object
+#### migration object passed to add()
 
 Has required properties:
 
