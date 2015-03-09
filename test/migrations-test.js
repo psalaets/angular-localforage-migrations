@@ -1,11 +1,13 @@
 // global assumed: localforage, angular, jasmine stuff
 describe('migrations', function() {
   var collectedValues = []
-  var migrations, $rootScope, $localForage
+  var migrations, $rootScope, $localForage, lastMigrationId
 
   beforeEach(function(done) {
     // set up some migrations
     module('angular-localforage-migrations', function(migrationsProvider) {
+      lastMigrationId = migrationsProvider.getLastMigrationIdKey()
+
       migrationsProvider.add({
         id: 1,
         migrate: function($lf) {
@@ -55,7 +57,7 @@ describe('migrations', function() {
 
   describe('with some previous migrations run', function() {
     beforeEach(function(done) {
-      localforage.setItem('angular-localforage-migrations:lastMigrationId', 1, done)
+      localforage.setItem(lastMigrationId, 1, done)
     })
 
     it('runs only pending migrations', function(done) {
@@ -71,7 +73,7 @@ describe('migrations', function() {
 
   describe('with all previous migrations run', function () {
     beforeEach(function(done) {
-      localforage.setItem('angular-localforage-migrations:lastMigrationId', 2, done)
+      localforage.setItem(lastMigrationId, 2, done)
     })
 
     it('runs no migrations', function(done) {
