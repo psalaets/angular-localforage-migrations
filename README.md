@@ -25,7 +25,7 @@ app.config(function(migrationsProvider) {
 
 #### migration object
 
-Has requied properties:
+Has required properties:
 
 - id - Number greater than zero. The id field should increase for each migration. They do not have to be sequential and do not have to start at 1.
 - migrate - Function that is passed [$localForage](https://github.com/ocombe/angular-localForage) and should return a promise.
