@@ -29,7 +29,7 @@ app.config(function(migrationsProvider) {
 app.factory('my-data-service', function(migrations, $localForage) {
   return {
     getSomeData: function() {
-      migrations.migrate().then(function() {
+      return migrations.migrate().then(function() {
         return $localForage.getItem('some-data')
       })
     }
