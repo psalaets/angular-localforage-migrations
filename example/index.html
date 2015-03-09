@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>angular-localforage-migrations example</title>
+
+  <script src="bower_components/angular/angular.js"></script>
+  <script src="bower_components/localforage/dist/localforage.js"></script>
+  <script src="bower_components/angular-localforage/dist/angular-localForage.js"></script>
+  <script src="bower_components/angular-localforage-migrations/index.js"></script>
+  <script src="index.js"></script>
+</head>
+<body ng-app="app">
+
+  <div ng-controller="MainCtrl">
+    <h1>Instructions</h1>
+    With developer console open...
+    <ol>
+      <li>Uncomment next migration in index.js</li>
+      <li>Reload page (look for console message and data change)</li>
+      <li>Reload page again (no console message, no migrations were run)</li>
+      <li>Go back to step 1</li>
+    </ol>
+
+    <button ng-click="clear()">Clear Data</button>
+
+    <h1>Person data:</h1>
+    <div ng-if="person">
+      <pre>{{person | json}}</pre>
+    </div>
+    <div ng-if="!person">
+      (does not exist)
+    </div>
+  </div>
+
+</body>
+</html>
