@@ -5,8 +5,8 @@ describe('migrations', function() {
 
   beforeEach(function(done) {
     // set up some migrations
-    module('angular-localforage-migrations', function(migrationsProvider) {
-      lastMigrationId = migrationsProvider.getLastMigrationIdKey()
+    module('angular-localforage-migrations', function(migrationsProvider, lastMigrationIdKey) {
+      lastMigrationId = lastMigrationIdKey
 
       migrationsProvider.add({
         id: 1,

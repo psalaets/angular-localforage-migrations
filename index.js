@@ -1,18 +1,15 @@
 ;(function iife(angular) {
   var module = angular.module('angular-localforage-migrations', ['LocalForageModule'])
 
+  // localforage key the holds id of last migration, if any
+  var lastMigrationIdKey = 'angular-localforage-migrations:lastMigrationId'
+  module.constant('lastMigrationIdKey', lastMigrationIdKey)
+
   module.provider('migrations', migrationsProvider)
 
   function migrationsProvider() {
     // migration objects added by user, each has {id: number, migration: function}
     var migrations = []
-
-    // localforage key the holds id of last migration, if any
-    var lastMigrationIdKey = 'angular-localforage-migrations:lastMigrationId'
-
-    this.getLastMigrationIdKey = function() {
-      return lastMigrationIdKey
-    }
 
     this.add = function(migration) {
       if (typeof migration.id != 'number' || migration.id <= 0) {
