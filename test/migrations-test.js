@@ -5,8 +5,7 @@ describe('migrations', function() {
 
   beforeEach(function(done) {
     // set up some migrations
-    var testModule = angular.module('app', ['angular-localforage-migrations'])
-    testModule.config(function(migrationsProvider) {
+    module('angular-localforage-migrations', function(migrationsProvider) {
       migrationsProvider.add({
         id: 1,
         migrate: function($lf) {
@@ -31,8 +30,6 @@ describe('migrations', function() {
         }
       })
     })
-
-    module('app')
 
     inject(function(_migrations_, _$rootScope_, _$localForage_) {
       migrations = _migrations_
