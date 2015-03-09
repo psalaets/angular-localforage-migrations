@@ -3,17 +3,6 @@ describe('migrations', function() {
   var collectedValues = []
   var migrations, $rootScope, $localForage
 
-  // taken from tests of angular-localForage
-  function triggerDigests() {
-    return setInterval(function() {
-      $rootScope.$digest();
-    }, 10)
-  }
-
-  function stopDigests(interval) {
-    window.clearInterval(interval);
-  }
-
   beforeEach(function(done) {
     // set up some migrations
     var testModule = angular.module('app', ['angular-localforage-migrations'])
@@ -98,4 +87,15 @@ describe('migrations', function() {
       }, done)
     })
   })
+
+  // taken from tests of angular-localForage
+  function triggerDigests() {
+    return setInterval(function() {
+      $rootScope.$digest();
+    }, 10)
+  }
+
+  function stopDigests(interval) {
+    window.clearInterval(interval);
+  }
 })
