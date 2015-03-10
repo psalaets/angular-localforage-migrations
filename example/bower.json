@@ -11,6 +11,6 @@
     "tests"
   ],
   "dependencies": {
-    "angular-localforage-migrations": "https://github.com/psalaets/angular-localforage-migrations.git"
+    "angular-localforage-migrations": "*"
   }
 }
