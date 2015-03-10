@@ -57,7 +57,13 @@ Returns promise fulfilled when all pending migrations have been run.
 
 ## Install
 
+### npm
 
+`npm install angular-localforage-migrations --save`
+
+### bower
+
+`bower install angular-localforage-migrations --save`
 
 ## License
 
