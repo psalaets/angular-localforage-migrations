@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "karma start ./karma.conf.js --autoWatch false --singleRun true",
+    "test": "karma start ./karma.conf.js --auto-watch false --single-run true",
     "test-watch": "karma start ./karma.conf.js",
-    "test-browserify": "karma start ./karma-browserify.conf.js --autoWatch false --singleRun true",
+    "test-browserify": "karma start ./karma-browserify.conf.js --auto-watch false --single-run true",
     "test-browserify-watch": "karma start ./karma-browserify.conf.js"
   },
   "author": "",
