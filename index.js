@@ -82,4 +82,12 @@
       }
     }]
   }
-})(angular)
+})(function findAngular(window) {
+  if (typeof module == 'object' && typeof module.exports == 'object') {
+    // In angular < 1.3.14, require('angular') doesn't return anything useful
+    // so use global angular if it's there
+    return window.angular || require('angular')
+  } else {
+    return window.angular
+  }
+}(this))
