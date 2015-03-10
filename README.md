@@ -65,6 +65,17 @@ Returns promise fulfilled when all pending migrations have been run.
 
 `bower install angular-localforage-migrations --save`
 
+## Dependencies
+
+This module can be used with browserify or by exposing global variables.
+
+It assumes these modules are already loaded or can be required:
+
+- [angular](https://github.com/angular/angular.js)
+- [angular-localforage](https://github.com/ocombe/angular-localForage)
+
+See of `examples/index.html` for example of load order.
+
 ## License
 
 MIT
