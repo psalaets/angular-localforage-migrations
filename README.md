@@ -6,6 +6,8 @@ Migrate localForage data in an Angular app
 
 ### 1. Depend on the `angular-localforage-migrations` module
 
+Browserify users: first do `require('angular-localforage-migrations')`
+
 ```js
 var app = angular.module('my-app', ['angular-localforage-migrations'])
 ```
