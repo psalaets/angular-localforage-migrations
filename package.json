@@ -2,6 +2,12 @@
   "name": "angular-localforage-migrations",
   "version": "1.0.0",
   "description": "Migrate localForage data in an Angular app",
+  "keywords": [
+    "angular",
+    "localforage",
+    "migrate",
+    "migration"
+  ],
   "main": "index.js",
   "scripts": {
     "test": "karma start ./karma.conf.js && npm run test-browserify",

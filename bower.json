@@ -1,7 +1,14 @@
 {
   "name": "angular-localforage-migrations",
-  "main": "index.js",
   "version": "1.0.0",
+  "description": "Migrate localForage data in an Angular app",
+  "keywords": [
+    "angular",
+    "localforage",
+    "migrate",
+    "migration"
+  ],
+  "main": "index.js",
   "authors": [
     "Paul Salaets <psalaets@gmail.com>"
   ],
@@ -14,8 +21,8 @@
     "tests"
   ],
   "dependencies": {
-    "angular": "~1.2.0",
-    "angular-localforage": "~1.2.2",
-    "localforage": "~1.2.0"
+    "angular": "^1.2.0",
+    "angular-localforage": "^1.2.2",
+    "localforage": "^1.2.0"
   }
 }
