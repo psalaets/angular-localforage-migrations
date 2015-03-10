@@ -74,7 +74,7 @@ It assumes these modules are already loaded or can be required:
 - [angular](https://github.com/angular/angular.js)
 - [angular-localforage](https://github.com/ocombe/angular-localForage)
 
-See of `examples/index.html` for example of load order.
+See of [example/index.html](https://github.com/psalaets/angular-localforage-migrations/blob/master/example/index.html) for example of load order.
 
 ## License
 
