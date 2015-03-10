@@ -4,7 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "karma start"
+    "test": "karma start ./karma.conf.js --autoWatch false --singleRun true",
+    "test-watch": "karma start ./karma.conf.js",
+    "test-browserify": "karma start ./karma-browserify.conf.js --autoWatch false --singleRun true",
+    "test-browserify-watch": "karma start ./karma-browserify.conf.js"
   },
   "author": "",
   "license": "MIT",
@@ -14,6 +17,7 @@
     "angular-mocks": "1.3.14",
     "jasmine-core": "2.2.0",
     "karma": "0.12.31",
+    "karma-browserify": "4.0.0",
     "karma-chrome-launcher": "0.1.7",
     "karma-jasmine": "0.3.5",
     "localforage": "1.2.0"

@@ -1,8 +1,19 @@
+if (typeof module == 'object' && module.exports) {
+  // require code under test and supporting code
+  window.angular = require('angular')
+  window.localforage = require('localforage')
+  require('angular-localforage')
+  require('..')
+
+  // require test stuff
+  require('angular-mocks')
+}
+
 describe('migrations provider', function () {
   var provider
 
   beforeEach(function () {
-    module('angular-localforage-migrations', function(migrationsProvider) {
+    angular.mock.module('angular-localforage-migrations', function(migrationsProvider) {
       provider = migrationsProvider
     })
   })

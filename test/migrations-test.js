@@ -1,3 +1,15 @@
+if (typeof module == 'object' && module.exports) {
+  // require code under test and supporting code
+  window.angular = require('angular')
+  window.localforage = require('localforage')
+  require('angular-localforage')
+  require('..')
+
+  // require test stuff
+  require('angular-mocks')
+}
+
+
 // global assumed: localforage, angular, jasmine stuff
 describe('migrations', function() {
   var collectedValues = []
@@ -5,7 +17,7 @@ describe('migrations', function() {
 
   beforeEach(function(done) {
     // set up some migrations
-    module('angular-localforage-migrations', function(migrationsProvider, lastMigrationIdKey) {
+    angular.mock.module('angular-localforage-migrations', function(migrationsProvider, lastMigrationIdKey) {
       lastMigrationId = lastMigrationIdKey
 
       migrationsProvider.add({
