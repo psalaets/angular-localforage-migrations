@@ -15,12 +15,12 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      'bower_components/angular/angular.js',
-      'bower_components/localforage/dist/localforage.js',
-      'bower_components/angular-localforage/dist/angular-localForage.js',
+      'node_modules/angular/angular.js',
+      'node_modules/localforage/dist/localforage.js',
+      'node_modules/angular-localforage/dist/angular-localForage.js',
       'index.js',
 
-      'bower_components/angular-mocks/angular-mocks.js',
+      'node_modules/angular-mocks/angular-mocks.js',
       'test/*.js'
     ],
 
