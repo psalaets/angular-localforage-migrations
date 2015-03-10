@@ -23,7 +23,6 @@
   ],
   "dependencies": {
     "angular": "^1.2.0",
-    "angular-localforage": "^1.2.2",
-    "localforage": "^1.2.0"
+    "angular-localforage": "^1.2.2"
   }
 }
