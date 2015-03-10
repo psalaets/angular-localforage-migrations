@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "karma start ./karma.conf.js",
+    "test": "karma start ./karma.conf.js && npm run test-browserify",
     "test-watch": "karma start ./karma.conf.js --auto-watch true --single-run false",
     "test-browserify": "karma start ./karma-browserify.conf.js",
     "test-browserify-watch": "karma start ./karma-browserify.conf.js --auto-watch false --single-run true"
