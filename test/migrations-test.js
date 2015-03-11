@@ -1,7 +1,6 @@
 if (typeof module == 'object' && module.exports) {
   // require code under test and supporting code
   window.angular = require('angular')
-  window.localforage = require('localforage')
   require('angular-localforage')
   require('..')
 
@@ -9,17 +8,13 @@ if (typeof module == 'object' && module.exports) {
   require('angular-mocks')
 }
 
-
-// global assumed: localforage, angular, jasmine stuff
 describe('migrations', function() {
   var collectedValues = []
-  var migrations, $rootScope, $localForage, lastMigrationId
+  var migrations, $rootScope, $localForage
 
   beforeEach(function(done) {
     // set up some migrations
-    angular.mock.module('angular-localforage-migrations', function(migrationsProvider, lastMigrationIdKey) {
-      lastMigrationId = lastMigrationIdKey
-
+    angular.mock.module('angular-localforage-migrations', function(migrationsProvider) {
       migrationsProvider.add({
         id: 1,
         migrate: function($lf) {
@@ -52,7 +47,12 @@ describe('migrations', function() {
     })
 
     collectedValues = []
-    localforage.clear(done)
+
+    var interval = triggerDigests()
+    migrations.$clearLastMigrationId().then(function() {
+      stopDigests(interval)
+      done()
+    }, done)
   })
 
   describe('with no previous migrations run', function() {
@@ -69,7 +69,11 @@ describe('migrations', function() {
 
   describe('with some previous migrations run', function() {
     beforeEach(function(done) {
-      localforage.setItem(lastMigrationId, 1, done)
+      var interval = triggerDigests()
+      migrations.$setLastMigrationId(1).then(function() {
+        stopDigests(interval)
+        done()
+      }, done)
     })
 
     it('runs only pending migrations', function(done) {
@@ -85,7 +89,11 @@ describe('migrations', function() {
 
   describe('with all previous migrations run', function () {
     beforeEach(function(done) {
-      localforage.setItem(lastMigrationId, 2, done)
+      var interval = triggerDigests()
+      migrations.$setLastMigrationId(2).then(function() {
+        stopDigests(interval)
+        done()
+      }, done)
     })
 
     it('runs no migrations', function(done) {

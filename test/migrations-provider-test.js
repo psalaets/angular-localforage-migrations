@@ -1,7 +1,6 @@
 if (typeof module == 'object' && module.exports) {
   // require code under test and supporting code
   window.angular = require('angular')
-  window.localforage = require('localforage')
   require('angular-localforage')
   require('..')
 

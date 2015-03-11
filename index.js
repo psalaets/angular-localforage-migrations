@@ -1,10 +1,6 @@
 ;(function iife(angular) {
   var module = angular.module('angular-localforage-migrations', ['LocalForageModule'])
 
-  // localforage key the holds id of last migration, if any
-  var lastMigrationIdKey = 'angular-localforage-migrations:lastMigrationId'
-  module.constant('lastMigrationIdKey', lastMigrationIdKey)
-
   module.provider('migrations', migrationsProvider)
 
   function migrationsProvider() {
@@ -34,12 +30,23 @@
     }
 
     this.$get = ['$localForage', '$q', function($localForage, $q) {
-      return {
-        migrate: runMigrations
-      }
+      // localforage instance for module-private data
+      var internalLocalForage = $localForage.createInstance({
+        name: 'angular-localforage-migrations'
+      })
+
+      // localforage key that holds id of last migration, if any
+      var lastMigrationIdKey = 'lastMigrationId'
 
       // fulfilled when data has been migrated
       var migrationsPromise
+
+      return {
+        migrate: runMigrations,
+        $clearLastMigrationId: clearLastMigrationId,
+        $setLastMigrationId: setLastMigrationId,
+        $getLastMigrationId: getLastMigrationId
+      }
 
       function runMigrations() {
         if (!migrationsPromise) {
@@ -72,13 +79,17 @@
       }
 
       function getLastMigrationId() {
-        return $localForage.getItem(lastMigrationIdKey).then(function(id) {
+        return internalLocalForage.getItem(lastMigrationIdKey).then(function(id) {
           return id || 0
         })
       }
 
       function setLastMigrationId(id) {
-        return $localForage.setItem(lastMigrationIdKey, id)
+        return internalLocalForage.setItem(lastMigrationIdKey, id)
+      }
+
+      function clearLastMigrationId() {
+        return internalLocalForage.removeItem(lastMigrationIdKey)
       }
     }]
   }
