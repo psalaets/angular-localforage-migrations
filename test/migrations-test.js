@@ -56,7 +56,7 @@ describe('migrations', function() {
   })
 
   describe('with no previous migrations run', function() {
-    it('runs all migrations', function(done) {
+    it('should run all migrations', function(done) {
       var interval = triggerDigests()
 
       migrations.migrate().then(function() {
@@ -76,7 +76,7 @@ describe('migrations', function() {
       }, done)
     })
 
-    it('runs only pending migrations', function(done) {
+    it('should only run pending migrations', function(done) {
       var interval = triggerDigests()
 
       migrations.migrate().then(function() {
@@ -96,7 +96,7 @@ describe('migrations', function() {
       }, done)
     })
 
-    it('runs no migrations', function(done) {
+    it('should run no migrations', function(done) {
       var interval = triggerDigests()
 
       migrations.migrate().then(function() {
