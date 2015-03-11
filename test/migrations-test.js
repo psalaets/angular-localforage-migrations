@@ -107,6 +107,30 @@ describe('migrations', function() {
     })
   })
 
+  describe('clearing the data of default $localForage instance', function() {
+    beforeEach(function(done) {
+      var interval = triggerDigests()
+      migrations.$setLastMigrationId(1).then(function() {
+        // if module's data wasn't namespaced this would reset last migration id
+        // and it'd run more migrations than it should
+        return $localForage.clear();
+      }).then(function() {
+        stopDigests(interval)
+        done()
+      }, done)
+    })
+
+    it('should run the pending migrations because it is unaffected', function(done) {
+      var interval = triggerDigests()
+
+      migrations.migrate().then(function() {
+        stopDigests(interval)
+        expect(collectedValues).toEqual([2])
+        done()
+      }, done)
+    })
+  })
+
   // taken from tests of angular-localForage
   function triggerDigests() {
     return setInterval(function() {
