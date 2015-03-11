@@ -43,6 +43,7 @@
 
       return {
         migrate: runMigrations,
+        // all method prefixed with $ are private, use your at own risk
         $clearLastMigrationId: clearLastMigrationId,
         $setLastMigrationId: setLastMigrationId,
         $getLastMigrationId: getLastMigrationId
