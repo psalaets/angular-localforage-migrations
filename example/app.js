@@ -60,7 +60,10 @@ app.factory('dataAccess', function(migrations, $localForage) {
       })
     },
     clear: function() {
-      return $localForage.clear()
+      return $localForage.clear().then(function() {
+        // Not recommended: calling private-ish method for demo convenience
+        return migrations.$clearLastMigrationId()
+      })
     }
   }
 })
