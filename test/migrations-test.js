@@ -33,22 +33,8 @@ describe('migrations', function() {
           // check that $localForage is passed to migrate function
           expect($lf).toBe($localForage)
 
-          // should be able to $localForage.clear in a migration
-          // without disrupting migration execution
-          return $lf.clear().then(function() {
-            collectedValues.push(2)
-          })
-        }
-      })
-
-      migrationsProvider.add({
-        id: 3,
-        migrate: function($lf) {
-          // check that $localForage is passed to migrate function
-          expect($lf).toBe($localForage)
-
           return $lf.getItem('blah').then(function() {
-            collectedValues.push(3)
+            collectedValues.push(2)
           })
         }
       })
@@ -75,7 +61,7 @@ describe('migrations', function() {
 
       migrations.migrate().then(function() {
         stopDigests(interval)
-        expect(collectedValues).toEqual([1, 2, 3])
+        expect(collectedValues).toEqual([1, 2])
         done()
       }, done)
     })
@@ -95,7 +81,7 @@ describe('migrations', function() {
 
       migrations.migrate().then(function() {
         stopDigests(interval)
-        expect(collectedValues).toEqual([2, 3])
+        expect(collectedValues).toEqual([2])
         done()
       }, done)
     })
@@ -104,7 +90,7 @@ describe('migrations', function() {
   describe('with all previous migrations run', function () {
     beforeEach(function(done) {
       var interval = triggerDigests()
-      migrations.$setLastMigrationId(3).then(function() {
+      migrations.$setLastMigrationId(2).then(function() {
         stopDigests(interval)
         done()
       }, done)
