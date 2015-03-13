@@ -57,6 +57,18 @@ Returns promise fulfilled when all pending migrations have been run.
 3. `bower install`
 4. Open index.html in a browser
 
+## Namespacing considerations
+
+If you are using this module in multiple apps on the same domain, you should supply a namespace for angular-localforage-migrations's internal data store.
+
+That can be done on the migrationsProvider:
+
+```js
+app.config(function(migrationsProvider) {
+  migrationsProvider.setInternalNamespace('unique-string-for-app')
+})
+```
+
 ## Install
 
 ### npm
