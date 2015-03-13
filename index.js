@@ -10,7 +10,7 @@
     // namespace for this module's internal data store
     var internalNamespace = ''
 
-    this.setInternalNamespace = function(ns) {
+    this.setInternalNamespace = function setInternalNamespace(ns) {
       if (typeof ns != 'string') {
         throw new Error('internalNamespace must be a string')
       }
@@ -18,7 +18,7 @@
       internalNamespace = ns
     }
 
-    this.add = function(migration) {
+    this.add = function add(migration) {
       if (typeof migration.id != 'number' || migration.id <= 0) {
         throw new Error('migration.id must be a number > 0')
       }
