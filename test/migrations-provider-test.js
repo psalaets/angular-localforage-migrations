@@ -48,5 +48,11 @@ describe('migrations provider', function () {
         })
       }).toThrow()
     }))
+
+    it('does not accept non-strings for internal namespace', inject(function() {
+      expect(function() {
+        provider.setInternalNamespace(5)
+      }).toThrow()
+    }))
   })
 })

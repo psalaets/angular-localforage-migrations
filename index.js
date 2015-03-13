@@ -7,6 +7,17 @@
     // migration objects added by user, each has {id: number, migration: function}
     var migrations = []
 
+    // namespace for this module's internal data store
+    var internalNamespace = ''
+
+    this.setInternalNamespace = function(ns) {
+      if (typeof ns != 'string') {
+        throw new Error('internalNamespace must be a string')
+      }
+
+      internalNamespace = ns
+    }
+
     this.add = function(migration) {
       if (typeof migration.id != 'number' || migration.id <= 0) {
         throw new Error('migration.id must be a number > 0')
@@ -32,7 +43,7 @@
     this.$get = ['$localForage', '$q', function($localForage, $q) {
       // localforage instance for module-private data
       var internalLocalForage = $localForage.createInstance({
-        name: 'angular-localforage-migrations'
+        name: internalNamespace + 'angular-localforage-migrations'
       })
 
       // localforage key that holds id of last migration, if any
