@@ -18,7 +18,7 @@ var app = angular.module('my-app', ['angular-localforage-migrations'])
 app.config(function(migrationsProvider) {
   migrationsProvider.add({
     id: 1,
-    migrate: function($localForage) {
+    migrate: function($localForage, $q) {
       // migrate data here and return promise
     }
   })
@@ -30,7 +30,7 @@ app.config(function(migrationsProvider) {
 Has required properties:
 
 - id - Number greater than zero. The id field should increase for each migration. They do not have to be sequential and do not have to start at 1.
-- migrate - Function that is passed [$localForage](https://github.com/ocombe/angular-localForage) and should return a promise.
+- migrate - Function that is passed [$localForage](https://github.com/ocombe/angular-localForage) and $q. Should return a promise.
 
 ### 3. Chain all data access off of `migrations.migrate()`
 

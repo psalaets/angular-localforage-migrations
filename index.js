@@ -57,7 +57,7 @@
 
             migrations.forEach(function(migration) {
               migrationChain = migrationChain.then(function() {
-                return migration.migrate($localForage)
+                return migration.migrate($localForage, $q)
               }).then(function() {
                 return setLastMigrationId(migration.id)
               })

@@ -10,18 +10,20 @@ if (typeof module == 'object' && module.exports) {
 
 describe('migrations', function() {
   var collectedValues = []
-  var migrations, $rootScope, $localForage
+  var migrations, $rootScope, $localForage, $q
 
   beforeEach(function(done) {
     // set up some migrations
     angular.mock.module('angular-localforage-migrations', function(migrationsProvider) {
       migrationsProvider.add({
         id: 1,
-        migrate: function($lf) {
-          // check that $localForage is passed to migrate function
-          expect($lf).toBe($localForage)
+        migrate: function($localForageArg, $qArg) {
+          // check expected args passed to migrate function
+          expect($localForageArg).toBe($localForage)
+          expect($qArg).toBe($q)
 
-          return $lf.setItem('blah', 'foo').then(function() {
+
+          return $localForageArg.setItem('blah', 'foo').then(function() {
             collectedValues.push(1)
           })
         }
@@ -29,21 +31,23 @@ describe('migrations', function() {
 
       migrationsProvider.add({
         id: 2,
-        migrate: function($lf) {
-          // check that $localForage is passed to migrate function
-          expect($lf).toBe($localForage)
+        migrate: function($localForageArg, $qArg) {
+          // check expected args passed to migrate function
+          expect($localForageArg).toBe($localForage)
+          expect($qArg).toBe($q)
 
-          return $lf.getItem('blah').then(function() {
+          return $localForageArg.getItem('blah').then(function() {
             collectedValues.push(2)
           })
         }
       })
     })
 
-    inject(function(_migrations_, _$rootScope_, _$localForage_) {
+    inject(function(_migrations_, _$rootScope_, _$localForage_, _$q_) {
       migrations = _migrations_
       $rootScope = _$rootScope_
       $localForage = _$localForage_
+      $q = _$q_
     })
 
     collectedValues = []
