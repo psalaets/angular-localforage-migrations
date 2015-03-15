@@ -29,8 +29,8 @@ app.config(function(migrationsProvider) {
 
 Has required properties:
 
-- id - Number greater than zero. The id field should increase for each migration. They do not have to be sequential and do not have to start at 1.
-- migrate - An [Angular injectable function](https://docs.angularjs.org/guide/di#dependency-annotation). The [$localForage](https://github.com/ocombe/angular-localForage) service is injectable here along with Angular built-ins and your injectables. Should return a $q promise if doing async work.
+- **id** - Number greater than zero. The id field should increase for each migration. They do not have to be sequential and do not have to start at 1.
+- **migrate** - An [Angular injectable function](https://docs.angularjs.org/guide/di#dependency-annotation). The [$localForage](https://github.com/ocombe/angular-localForage) service is injectable here along with Angular built-ins and your injectables. Should return a $q promise if doing async work.
 
 ### 3. Chain all data access off of `migrations.migrate()`
 
