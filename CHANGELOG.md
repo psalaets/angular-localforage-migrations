@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## [3.0.0] - 2015-03-15
+### Changed
+
+- `migrate` functions are now fully injectable using [typical Angular conventions](https://docs.angularjs.org/guide/di#dependency-annotation)
+
 ## [2.2.0] - 2015-03-12
 ### Added
 
