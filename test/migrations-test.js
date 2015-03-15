@@ -41,6 +41,19 @@ describe('migrations', function() {
           })
         }
       })
+
+      migrationsProvider.add({
+        id: 3,
+        migrate: function($localForageArg, $qArg) {
+          // check expected args passed to migrate function
+          expect($localForageArg).toBe($localForage)
+          expect($qArg).toBe($q)
+
+          return $localForageArg.getItem('blah').then(function() {
+            collectedValues.push(3)
+          })
+        }
+      })
     })
 
     inject(function(_migrations_, _$rootScope_, _$localForage_, _$q_) {
@@ -65,7 +78,7 @@ describe('migrations', function() {
 
       migrations.migrate().then(function() {
         stopDigests(interval)
-        expect(collectedValues).toEqual([1, 2])
+        expect(collectedValues).toEqual([1, 2, 3])
         done()
       }, done)
     })
@@ -85,7 +98,7 @@ describe('migrations', function() {
 
       migrations.migrate().then(function() {
         stopDigests(interval)
-        expect(collectedValues).toEqual([2])
+        expect(collectedValues).toEqual([2, 3])
         done()
       }, done)
     })
@@ -94,7 +107,7 @@ describe('migrations', function() {
   describe('with all previous migrations run', function () {
     beforeEach(function(done) {
       var interval = triggerDigests()
-      migrations.$setLastMigrationId(2).then(function() {
+      migrations.$setLastMigrationId(3).then(function() {
         stopDigests(interval)
         done()
       }, done)
@@ -129,7 +142,7 @@ describe('migrations', function() {
 
       migrations.migrate().then(function() {
         stopDigests(interval)
-        expect(collectedValues).toEqual([2])
+        expect(collectedValues).toEqual([2, 3])
         done()
       }, done)
     })
