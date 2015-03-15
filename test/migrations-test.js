@@ -10,57 +10,60 @@ if (typeof module == 'object' && module.exports) {
 
 describe('migrations', function() {
   var collectedValues = []
-  var migrations, $rootScope, $localForage, $q
+  var migrations, $rootScope, $localForageExpected, $qExpected
 
   beforeEach(function(done) {
     // set up some migrations
     angular.mock.module('angular-localforage-migrations', function(migrationsProvider) {
+      // migration with injections inferred
       migrationsProvider.add({
         id: 1,
-        migrate: function($localForageArg, $qArg) {
-          // check expected args passed to migrate function
-          expect($localForageArg).toBe($localForage)
-          expect($qArg).toBe($q)
+        migrate: function($localForage, $q) {
+          expect($localForage).toBe($localForageExpected)
+          expect($q).toBe($qExpected)
 
-
-          return $localForageArg.setItem('blah', 'foo').then(function() {
+          return $localForage.setItem('blah', 'foo').then(function() {
             collectedValues.push(1)
           })
         }
       })
 
+      // migration with injections specified inline
       migrationsProvider.add({
         id: 2,
-        migrate: function($localForageArg, $qArg) {
+        migrate: ['$localForage', '$q', function($localForage, $q) {
           // check expected args passed to migrate function
-          expect($localForageArg).toBe($localForage)
-          expect($qArg).toBe($q)
+          expect($localForage).toBe($localForageExpected)
+          expect($q).toBe($qExpected)
 
-          return $localForageArg.getItem('blah').then(function() {
+          return $localForage.getItem('blah').then(function() {
             collectedValues.push(2)
           })
-        }
+        }]
       })
 
+      // migration with injections specified through annotation
       migrationsProvider.add({
         id: 3,
-        migrate: function($localForageArg, $qArg) {
-          // check expected args passed to migrate function
-          expect($localForageArg).toBe($localForage)
-          expect($qArg).toBe($q)
-
-          return $localForageArg.getItem('blah').then(function() {
-            collectedValues.push(3)
-          })
-        }
+        migrate: migrate3
       })
+
+      function migrate3($localForage, $q) {
+        expect($localForage).toBe($localForageExpected)
+        expect($q).toBe($qExpected)
+
+        return $localForage.getItem('blah').then(function() {
+          collectedValues.push(3)
+        })
+      }
+      migrate3.$inject = ['$localForage', '$q']
     })
 
     inject(function(_migrations_, _$rootScope_, _$localForage_, _$q_) {
       migrations = _migrations_
       $rootScope = _$rootScope_
-      $localForage = _$localForage_
-      $q = _$q_
+      $localForageExpected = _$localForage_
+      $qExpected = _$q_
     })
 
     collectedValues = []
@@ -130,7 +133,7 @@ describe('migrations', function() {
       migrations.$setLastMigrationId(1).then(function() {
         // if module's data wasn't namespaced this would reset last migration id
         // and it'd run more migrations than it should
-        return $localForage.clear();
+        return $localForageExpected.clear();
       }).then(function() {
         stopDigests(interval)
         done()

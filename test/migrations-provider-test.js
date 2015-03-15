@@ -49,6 +49,20 @@ describe('migrations provider', function () {
       }).toThrow()
     }))
 
+    it('accepts migrations with migrate function', inject(function () {
+      provider.add({
+        id: 1,
+        migrate: function(dep) {}
+      })
+    }))
+
+    it('accepts migrations with migrate array', inject(function () {
+      provider.add({
+        id: 1,
+        migrate: ['dep', function(dep) {}]
+      })
+    }))
+
     it('does not accept non-strings for internal namespace', inject(function() {
       expect(function() {
         provider.setInternalNamespace(5)

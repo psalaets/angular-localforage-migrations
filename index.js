@@ -27,8 +27,8 @@
         throw new Error('migration already exists with id ' + migration.id)
       }
 
-      if (typeof migration.migrate != 'function') {
-        throw new Error('migration.migrate must be a function')
+      if (typeof migration.migrate != 'function' && !angular.isArray(migration.migrate)) {
+        throw new Error('migration.migrate must be an Angular injectable function')
       }
 
       migrations.push(migration)
@@ -40,7 +40,7 @@
       })
     }
 
-    this.$get = ['$localForage', '$q', function($localForage, $q) {
+    this.$get = ['$localForage', '$q', '$injector', function($localForage, $q, $injector) {
       // localforage instance for module-private data
       var internalLocalForage = $localForage.createInstance({
         name: internalNamespace + 'angular-localforage-migrations'
@@ -68,7 +68,7 @@
 
             migrations.forEach(function(migration) {
               migrationChain = migrationChain.then(function() {
-                return migration.migrate($localForage, $q)
+                return $injector.invoke(migration.migrate)
               }).then(function() {
                 return setLastMigrationId(migration.id)
               })
