@@ -1,6 +1,6 @@
 {
   "name": "angular-localforage-migrations",
-  "version": "3.0.0",
+  "version": "3.1.0",
   "description": "Migrate localForage data in an Angular app",
   "keywords": [
     "angular",

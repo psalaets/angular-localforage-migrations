@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+## [3.1.0] - 2015-03-28
+### Changed
+
+- `require('angular-localforage-migrations')` now returns the Angular module name so commonjs users can do
+```js
+angular.module('app', [require('angular-localforage-migrations')])
+```
+
 ## [3.0.0] - 2015-03-15
 ### Changed
 
