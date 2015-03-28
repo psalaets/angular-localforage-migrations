@@ -1,16 +1,19 @@
-if (typeof module == 'object' && module.exports) {
-  // require code under test and supporting code
-  window.angular = require('angular')
-  require('angular-localforage')
-  require('..')
-
-  // require test stuff
-  require('angular-mocks')
-}
-
 describe('migrations', function() {
   var collectedValues = []
   var migrations, $rootScope, $localForageExpected, $qExpected
+
+  if (typeof module == 'object' && module.exports) {
+    // require code under test and supporting code
+    window.angular = require('angular')
+    require('angular-localforage')
+
+    it('exposes the Angular module name through module.exports', function() {
+      expect(require('..')).toBe('angular-localforage-migrations')
+    })
+
+    // require test stuff
+    require('angular-mocks')
+  }
 
   beforeEach(function(done) {
     // set up some migrations

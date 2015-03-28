@@ -1,7 +1,33 @@
-;(function iife(angular) {
-  var module = angular.module('angular-localforage-migrations', ['LocalForageModule'])
+// factory is function(angular, optionalCommonjsModule)
+;(function defineModule(global, factory) {
+  factory(findAngular(global), findCommonjsModule());
 
-  module.provider('migrations', migrationsProvider)
+  function findAngular(global) {
+    var commonjs = findCommonjsModule();
+    if (commonjs) {
+      // value returned by require('angular') wasn't useful until angular 1.3.14
+      return global.angular || require('angular');
+    } else {
+      return global.angular;
+    }
+  }
+
+  // if this seems like commonjs env, return the 'module' global
+  function findCommonjsModule() {
+    if (typeof exports === 'object' && typeof module === 'object') {
+      return module;
+    }
+  }
+})(this, function createAngularModule(angular, commonjsModule) {
+  var angularModuleName = 'angular-localforage-migrations'
+
+  // setup so require('angular-localforage-migrations') returns Angular module name when in commonjs environment
+  if (commonjsModule) {
+    commonjsModule.exports = angularModuleName
+  }
+
+  var angularModule = angular.module(angularModuleName, ['LocalForageModule'])
+  angularModule.provider('migrations', migrationsProvider)
 
   function migrationsProvider() {
     // migration objects added by user, each has {id: number, migration: function}
@@ -105,12 +131,4 @@
       }
     }]
   }
-})(function findAngular(window) {
-  if (typeof module == 'object' && typeof module.exports == 'object') {
-    // In angular < 1.3.14, require('angular') doesn't return anything useful
-    // so use global angular if it's there
-    return window.angular || require('angular')
-  } else {
-    return window.angular
-  }
-}(this))
+});
